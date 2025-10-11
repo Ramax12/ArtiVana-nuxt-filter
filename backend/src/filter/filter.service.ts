@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { prisma } from 'src/prisma/prisma.service';
-import { FilterDto } from './dto/filter.dto';
+import { CreateFilterDto } from './dto/create-filter.dto';
 import { ProductMapper } from 'src/mappers/product.mapper';
 import { normalizeProduct } from 'src/utils/normalize-product';
 import { IProduct, ICategory, IFilterData, IFilterDataItem, IFilterMeta, ILabels, IProductDTO } from 'src/typescript/interfaces';
@@ -58,7 +58,7 @@ export class FilterService {
     };
   }
 
-  filterProducts(query: FilterDto): IProduct[] {
+  filterProducts(query: CreateFilterDto): IProduct[] {
     let filtered = this.products;
 
     if (query.subcategory) {
@@ -98,7 +98,7 @@ export class FilterService {
     return filtered;
   }
 
-  getProducts(query: FilterDto): IProductDTO[] {
+  getProducts(query: CreateFilterDto): IProductDTO[] {
     const PER_PAGE = 24;
     let products = this.filterProducts(query);
     const page = query.page ?? 1;
@@ -144,12 +144,12 @@ export class FilterService {
     return [min, max];
   }
 
-  private prepareBaseData(query: FilterDto) {
+  private prepareBaseData(query: CreateFilterDto) {
     if (query.subsubcategory || query.subcategory) {
       return this.filterProducts({
         subsubcategory: query.subsubcategory,
         subcategory: query.subcategory,
-      } as FilterDto);
+      } as CreateFilterDto);
     }
     return this.products;
   }
@@ -218,11 +218,11 @@ export class FilterService {
     });
   }
 
-  private calculateCounts(filterData: IFilterData, query: FilterDto) {
-    const updateCount = (items: any[], field: keyof FilterDto) => {
+  private calculateCounts(filterData: IFilterData, query: CreateFilterDto) {
+    const updateCount = (items: any[], field: keyof CreateFilterDto) => {
       items.forEach(item => {
         const modifiedQuery = { ...query, [field]: undefined };
-        const filtered = this.filterProducts({ ...modifiedQuery, [field]: item.id } as FilterDto);
+        const filtered = this.filterProducts({ ...modifiedQuery, [field]: item.id } as CreateFilterDto);
         item.count = filtered.length;
       });
     };
@@ -278,7 +278,7 @@ export class FilterService {
     });
   }
 
-  getFilterMeta(query: FilterDto): IFilterMeta {
+  getFilterMeta(query: CreateFilterDto): IFilterMeta {
     const filteredProducts = this.filterProducts(query);
     const baseProducts = this.prepareBaseData(query);
 

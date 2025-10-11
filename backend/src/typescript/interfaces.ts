@@ -29,9 +29,7 @@ export interface IProductOption {
   name: string;
 }
 
-export interface IProductOptionWithSlug {
-  id: number;
-  name: string;
+export interface IProductOptionWithSlug extends IProductOption {
   slug: string;
 }
 

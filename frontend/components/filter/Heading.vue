@@ -185,7 +185,7 @@ const loadProducts = () => {
     <div class="flex flex-wrap lg:hidden gap-2">
       <div
         data-testid="filters-button"
-        class="flex justify-between items-center px-3 py-2 border border-gray-400 rounded-md bg-white cursor-pointer
+        class="flex justify-between items-center px-3 py-1.5 border border-gray-400 rounded-md bg-white cursor-pointer
           hover:border-gray-600 transition-brand select-none"
         @click="toggleFilterPopup"
       >
@@ -195,7 +195,7 @@ const loadProducts = () => {
 
       <div
         data-testid="sorting-button"
-        class="flex justify-between items-center px-3 py-2 border border-gray-400 rounded-md bg-white cursor-pointer
+        class="flex justify-between items-center px-3 py-1.5 border border-gray-400 rounded-md bg-white cursor-pointer
           hover:border-gray-600 transition-brand select-none"
         @click="toggleSortPopup"
       >
@@ -213,8 +213,8 @@ const loadProducts = () => {
 
     <div class="relative hidden lg:flex w-44 select-none">
       <div
-        class="z-30 relative flex justify-between items-center w-full px-3 py-2 border cursor-pointer bg-white hover:border-gray-700
-          transition-brand"
+        class="z-30 relative flex justify-between items-center w-full px-3 py-2 text-xs lg:text-sm border cursor-pointer
+          bg-white hover:border-gray-700 transition-brand"
         :class="[isOpenSelect ? 'rounded-b-none border-gray-600' : 'rounded-md border-gray-500']"
         @click="isOpenSelect = !isOpenSelect"
       >
@@ -269,7 +269,7 @@ const loadProducts = () => {
           @touchend="handleTouchEnd"
         ></div>
 
-        <div class="py-3 px-4 rounded-t-lg mb-1 shadow-gray-light bg-white">
+        <div class="py-2 px-4 rounded-t-lg mb-1 shadow-gray-light bg-white">
           <div class="text-lg">Sort by</div>
         </div>
 

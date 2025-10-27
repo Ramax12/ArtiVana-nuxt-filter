@@ -58,7 +58,7 @@ const syncUrlWithFilters = (value: Record<string, any>) => {
 
 const scrollTo = () => {
   if (filterElement.value) {
-    const top = filterElement.value.getBoundingClientRect().top + window.scrollY - (window.innerWidth > MAX_SCREEN_WIDTH.laptop ? 116 : 0);
+    const top = filterElement.value.getBoundingClientRect().top + window.scrollY - (window.innerWidth > MAX_SCREEN_WIDTH.laptop ? 93 : 0);
     window.scrollTo({ top: top, behavior: 'smooth' });
   }
 };

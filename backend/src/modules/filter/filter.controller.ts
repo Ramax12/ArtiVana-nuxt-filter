@@ -2,7 +2,7 @@ import { Controller, Get, Query } from '@nestjs/common';
 import { FilterService } from './filter.service';
 import { CreateFilterDto } from './dto/create-filter.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ProductResponseDto } from 'src/product/dto/product-response.dto';
+import { ProductResponseDto } from 'src/modules/product/dto/product-response.dto';
 import { FilterMetaDto } from './dto/filter-meta.dto';
 
 @ApiTags('Filter')

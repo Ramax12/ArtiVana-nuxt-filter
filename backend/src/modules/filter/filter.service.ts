@@ -1,9 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { prisma } from 'src/prisma/prisma.service';
+import { InjectModel } from '@nestjs/sequelize';
 import { CreateFilterDto } from './dto/create-filter.dto';
 import { ProductMapper } from 'src/mappers/product.mapper';
 import { normalizeProduct } from 'src/utils/normalize-product';
+import { Product } from 'src/modules/product/product.model';
+import { Category } from 'src/modules/categories/models/category.model';
+import { Brand } from 'src/modules/dictionaries/models/brand.model';
+import { CharGeneral } from 'src/modules/dictionaries/models/char-general.model';
+import { CharGeneralOption } from 'src/modules/dictionaries/models/char-general-option.model';
+import { CharExtra } from 'src/modules/dictionaries/models/char-extra.model';
+import { CharExtraOption } from 'src/modules/dictionaries/models/char-extra-option.model';
 import { IProduct, ICategory, IFilterData, IFilterDataItem, IFilterMeta, ILabels, IProductDTO } from 'src/typescript/interfaces';
+
 @Injectable()
 export class FilterService {
   private products: IProduct[] = [];
@@ -16,37 +24,48 @@ export class FilterService {
     chars_extra_options: [],
   };
 
-  constructor() {
+  constructor(
+    @InjectModel(Product) private productModel: typeof Product,
+    @InjectModel(Category) private categoryModel: typeof Category,
+    @InjectModel(Brand) private brandModel: typeof Brand,
+    @InjectModel(CharGeneral) private charGeneralModel: typeof CharGeneral,
+    @InjectModel(CharGeneralOption) private charGeneralOptionModel: typeof CharGeneralOption,
+    @InjectModel(CharExtra) private charExtraModel: typeof CharExtra,
+    @InjectModel(CharExtraOption) private charExtraOptionModel: typeof CharExtraOption,
+  ) {
     this.loadProducts();
     this.loadCategories();
     this.loadLabels();
   }
 
   async loadProducts() {
-    const rawProducts = await prisma.product.findMany();
+    const rawProducts = await this.productModel.findAll();
 
     this.products = rawProducts.map(normalizeProduct);
   }
 
   async loadCategories() {
-    this.categories = await prisma.category.findMany({
-      include: {
-        subcategories: {
-          include: {
-            subsubcategories: true,
-          },
+    this.categories = await this.categoryModel.findAll({
+      include: [
+        {
+          association: 'subcategories',
+          include: [
+            {
+              association: 'subsubcategories',
+            },
+          ],
         },
-      },
+      ],
     });
   }
 
   async loadLabels() {
     const [rawBrands, rawCharsGeneral, rawCharsGeneralOptions, rawCharsExtra, rawCharsExtraOptions] = await Promise.all([
-      prisma.brand.findMany(),
-      prisma.charGeneral.findMany(),
-      prisma.charGeneralOption.findMany(),
-      prisma.charExtra.findMany(),
-      prisma.charExtraOption.findMany(),
+      this.brandModel.findAll(),
+      this.charGeneralModel.findAll(),
+      this.charGeneralOptionModel.findAll(),
+      this.charExtraModel.findAll(),
+      this.charExtraOptionModel.findAll(),
     ]);
 
     this.labels = {

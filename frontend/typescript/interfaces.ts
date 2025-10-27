@@ -29,9 +29,7 @@ export interface IProductOption {
   name: string;
 }
 
-export interface IProductOptionWithSlug {
-  id: number;
-  name: string;
+export interface IProductOptionWithSlug extends IProductOption {
   slug: string;
 }
 
@@ -104,7 +102,7 @@ export interface ICategory {
 }
 
 export interface IOption {
-  id: number | string;
+  id: number;
   name: string;
 }
 
@@ -117,7 +115,7 @@ export interface INavigation {
 export interface IEvent {
   id: number;
   title: string;
-  date: Date;
+  date: string;
   type: 'news' | 'offers';
   link: string;
   image: string;
@@ -178,6 +176,7 @@ export interface ITab {
   id: number;
   name: string;
   value: string;
+  hash?: string;
   position_stick: number;
 }
 
@@ -191,4 +190,40 @@ export interface IFullShipingOption {
   value: string;
   icon: Component;
   time: string;
+}
+
+export interface AddressesOptions {
+  id: number;
+  country_id: number;
+  name: string;
+  street: string;
+  city: string;
+  region: string;
+  zip_code: string;
+  phone: string;
+  default: boolean;
+}
+
+export interface IUser {
+  id: number;
+  name: string;
+  email: string;
+  addresses: AddressesOptions[];
+  is_verified: boolean;
+}
+
+export interface ICurrentDate {
+  shipping: {
+    day: string;
+    time: string;
+  };
+  delivery: {
+    day: string;
+    time: string;
+  };
+}
+
+export interface ICurrentCost {
+  shipping: number;
+  delivery: number;
 }

@@ -82,7 +82,7 @@ const clearAllFilters = () => {
     v-if="hasActiveFilters"
     class="mb-5"
   >
-    <div class="flex justify-between items-center py-3 px-4 rounded-t-lg mb-1 shadow-gray-light bg-white">
+    <div class="flex justify-between items-center py-2 px-4 rounded-t-lg mb-1 shadow-gray-light bg-white">
       <div class="text-lg font-bold">Selected filters</div>
       <div
         data-testid="clear-all-button"
@@ -94,7 +94,7 @@ const clearAllFilters = () => {
     <div class="flex flex-wrap gap-2 py-3 px-4 rounded-b-lg shadow-gray-light bg-white">
       <div
         v-if="filterStore.selectedFilters.subsubcategories.length"
-        class="flex items-center px-3 py-2 border border-gray-400 rounded-md bg-white transition-brand"
+        class="flex items-center px-3 py-1.5 border border-gray-400 rounded-md bg-white transition-brand"
       >
         <span
           data-testid="subsubcategory-text"
@@ -115,7 +115,7 @@ const clearAllFilters = () => {
 
       <div
         v-if="filterStore.selectedFilters.price[0] || filterStore.selectedFilters.price[1]"
-        class="flex items-center px-3 py-2 border border-gray-400 rounded-md bg-white transition-brand"
+        class="flex items-center px-3 py-1.5 border border-gray-400 rounded-md bg-white transition-brand"
       >
         <span
           data-testid="price-text"
@@ -146,7 +146,7 @@ const clearAllFilters = () => {
 
       <div
         v-if="filterStore.selectedFilters.brands.length"
-        class="flex items-center px-3 py-2 border border-gray-400 rounded-md bg-white transition-brand"
+        class="flex items-center px-3 py-1.5 border border-gray-400 rounded-md bg-white transition-brand"
       >
         <span
           data-testid="brand-text"
@@ -166,7 +166,7 @@ const clearAllFilters = () => {
 
       <div
         v-if="filterStore.selectedFilters.rating"
-        class="flex items-center px-3 py-2 border border-gray-400 rounded-md bg-white transition-brand"
+        class="flex items-center px-3 py-1.5 border border-gray-400 rounded-md bg-white transition-brand"
       >
         <span
           data-testid="rating-text"
@@ -188,7 +188,7 @@ const clearAllFilters = () => {
       <div
         v-for="(ids, characteristic) in filterStore.selectedFilters.characteristics || {}"
         :key="characteristic"
-        class="flex items-center px-3 py-2 border border-gray-400 rounded-md bg-white transition-brand"
+        class="flex items-center px-3 py-1.5 border border-gray-400 rounded-md bg-white transition-brand"
       >
         <span
           data-testid="characteristic-text"

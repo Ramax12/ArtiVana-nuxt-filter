@@ -1,8 +1,8 @@
-import type { Product as PrismaProduct } from '@prisma/client';
+import { Product } from 'src/modules/product/product.model';
 import type { IProduct } from 'src/typescript/interfaces';
-import { DeliveryOption } from 'src/typescript/types';
+import { DeliveryOption } from 'src/typescript/enums';
 
-export function normalizeProduct(p: PrismaProduct): IProduct {
+export function normalizeProduct(p: Product): IProduct {
   return {
     id: p.id,
     slug: p.slug,

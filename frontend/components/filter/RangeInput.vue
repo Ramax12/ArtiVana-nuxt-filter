@@ -77,7 +77,7 @@ const changeValue = (type: string) => {
     class="w-full"
     @click="onClickToOpen"
   >
-    <div class="flex items-center gap-0.5 mb-4">
+    <div class="flex items-center gap-1.5 mb-4">
       <base-input
         v-model="localValue[0]"
         :format="format"

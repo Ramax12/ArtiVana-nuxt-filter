@@ -48,11 +48,15 @@ export const useFilterStore = defineStore('filter', {
     },
 
     async fetchProducts(params: Record<string, any>) {
+      this.isLoading = true;
+
       try {
         this.products = await $fetch<IProductDTO[]>('/api/products/filter', { params });
       } catch (error) {
         console.error('Error fetching', error);
         this.products = [];
+      } finally {
+        this.isLoading = false;
       }
     },
 

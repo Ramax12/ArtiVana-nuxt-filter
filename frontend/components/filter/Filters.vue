@@ -98,7 +98,7 @@ const changeValue = () => {
   >
     <div
       data-testid="category-header-subsubcategory"
-      class="flex justify-between items-center py-3 px-4 mb-1 lg:hover:shadow-gray-hard no-hover-shadow bg-white
+      class="flex justify-between items-center py-2 px-4 mb-1 lg:hover:shadow-gray-hard no-hover-shadow bg-white
         cursor-pointer transition-brand select-none"
       :class="[isCategoryOpen.includes('subsubcategory') ? 'rounded-t-lg' : 'rounded-lg']"
       @click="onCategoryClick('subsubcategory')"
@@ -141,7 +141,7 @@ const changeValue = () => {
 
   <div class="shadow-gray-light mb-4">
     <div
-      class="flex justify-between items-center py-3 px-4 mb-1 lg:hover:shadow-gray-hard no-hover-shadow bg-white
+      class="flex justify-between items-center py-2 px-4 mb-1 lg:hover:shadow-gray-hard no-hover-shadow bg-white
         cursor-pointer transition-brand select-none"
       :class="[isCategoryOpen.includes('price') ? 'rounded-t-lg' : 'rounded-lg']"
       @click="onCategoryClick('price')"
@@ -154,7 +154,7 @@ const changeValue = () => {
     </div>
 
     <div
-      class="py-3 px-4 rounded-b-lg bg-white"
+      class="py-2 px-4 rounded-b-lg bg-white"
       :class="[isCategoryOpen.includes('price') ? 'flex' : 'hidden']"
     >
       <div class="relative flex flex-col items-start w-full">
@@ -180,7 +180,7 @@ const changeValue = () => {
     class="shadow-gray-light mb-4"
   >
     <div
-      class="flex justify-between items-center py-3 px-4 mb-1 lg:hover:shadow-gray-hard no-hover-shadow bg-white
+      class="flex justify-between items-center py-2 px-4 mb-1 lg:hover:shadow-gray-hard no-hover-shadow bg-white
         cursor-pointer transition-brand select-none"
       :class="[isCategoryOpen.includes('brand') ? 'rounded-t-lg' : 'rounded-lg']"
       @click="onCategoryClick('brand')"
@@ -234,7 +234,7 @@ const changeValue = () => {
 
   <div class="shadow-gray-light mb-4">
     <div
-      class="flex justify-between items-center py-3 px-4 mb-1 lg:hover:shadow-gray-hard no-hover-shadow
+      class="flex justify-between items-center py-2 px-4 mb-1 lg:hover:shadow-gray-hard no-hover-shadow
       bg-white cursor-pointer transition-brand select-none"
       :class="[isCategoryOpen.includes('rating') ? 'rounded-t-lg' : 'rounded-lg']"
       @click="onCategoryClick('rating')"
@@ -282,7 +282,7 @@ const changeValue = () => {
     class="shadow-gray-light mb-4"
   >
     <div
-      class="flex justify-between items-center py-3 px-4 mb-1 lg:hover:shadow-gray-hard no-hover-shadow
+      class="flex justify-between items-center py-2 px-4 mb-1 lg:hover:shadow-gray-hard no-hover-shadow
         bg-white cursor-pointer transition-brand select-none"
       :class="[isCategoryOpen.includes(chars.name) ? 'rounded-t-lg' : 'rounded-lg']"
       @click="onCategoryClick(chars.name)"

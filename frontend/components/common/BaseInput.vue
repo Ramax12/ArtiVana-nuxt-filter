@@ -62,17 +62,8 @@ watch(() => model.value, value => {
   init();
 });
 
-watch([() => props.error, () => model.value], () => {
-  if (props.error !== undefined) {
-    if (!isFocusInput.value && props.error) {
-      message.value.error.description = props.error;
-      showMessage.value = message.value.error;
-    } else if (!isFocusInput.value && inputValue.value) {
-      showMessage.value = message.value.successful;
-    } else {
-      showMessage.value = null;
-    }
-  }
+watch(() => props.error, value => {
+  insertionMessage();
 });
 
 const isNumberFormating = computed(() => {
@@ -110,6 +101,17 @@ const countSpacesBeforeIndex = (value: string, index: number): number => {
   return (value.substring(0, index).match(/\s/g) || []).length;
 };
 
+const insertionMessage = () => {
+  if (props.error) {
+    message.value.error.description = props.error;
+    showMessage.value = message.value.error;
+  } else if (inputValue.value?.toString().trim()) {
+    showMessage.value = message.value.successful;
+  } else {
+    showMessage.value = null;
+  }
+};
+
 const onInputChange = (event: Event) => {
   const target = event.target as HTMLInputElement;
   const carriagePosition = target.selectionStart;
@@ -139,7 +141,7 @@ const onInputChange = (event: Event) => {
       }
     });
   } else if (props.format === 'name') {
-    const rule = /[а-яА-ЯЁёa-zA-Z\s]/g;
+    const rule = /[a-zA-Z\s]/g;
     const oldValue = inputValue.value;
 
     inputValue.value = transformInputValue(rule, 40);
@@ -166,8 +168,11 @@ const onInputChange = (event: Event) => {
       const underscoreIndex = inputValue.value?.indexOf('_') ?? 0;
       target.setSelectionRange(underscoreIndex, underscoreIndex);
     });
+  } else if (props.format === 'password') {
+    const rule = /[\x21-\x7E]/g;
+    inputValue.value = transformInputValue(rule, 40);
   } else {
-    const rule = /[^@#$%^&*()_+={}\[\]|\\:;"'<>?\/!]/g;
+    const rule = /[\x20-\x7E\u0400-\u04FF]/g;
     inputValue.value = transformInputValue(rule, 100);
   }
 };
@@ -214,6 +219,8 @@ const onInputKeydown = (event: KeyboardEvent) => {
 };
 
 const onInputFocus = () => {
+  showMessage.value = null;
+
   if (inputValue.value && props.suffix) {
     inputValue.value = inputValue.value.replace(props.suffix, '');
   }
@@ -248,6 +255,8 @@ const onInputBlur = () => {
     emits('change-value');
   }
   isFocusInput.value = false;
+
+  insertionMessage();
 };
 
 const onInputClick = (event: Event) => {
@@ -277,7 +286,7 @@ const onInputClick = (event: Event) => {
     <label
       v-if="label"
       data-testid="label"
-      class="mb-0.5 leading-6"
+      class="text-xs lg:text-sm mb-px"
     >{{ label }}</label>
 
     <div
@@ -301,10 +310,14 @@ const onInputClick = (event: Event) => {
         :placeholder="placeholder"
         v-bind="autocomplete ? { autocomplete } : {}"
         data-testid="input"
-        class="w-full px-3 py-2 text-gray-900 border border-gray-500 rounded-md bg-gray-200 transition-all duration-200 ease-in-out
-        hover:border-gray-700 focus:border-brand focus:shadow-brand-light placeholder-gray-600"
+        class="w-full px-3 py-2 text-xs lg:text-sm text-gray-900 border border-gray-500 rounded-md bg-gray-200
+          transition-all duration-200 ease-in-out
+          hover:border-gray-700 focus:border-brand focus:shadow-brand-light placeholder-gray-600"
         :class="[
-          { 'pl-4 pt-4 pb-0': extraLabel && inputValue, 'pr-8': showMessage },
+          {
+            'pl-4 pt-4 pb-0': extraLabel && inputValue,
+            'pr-8': showMessage
+          },
           inputClasses
         ]"
         @input="onInputChange"
@@ -325,7 +338,7 @@ const onInputClick = (event: Event) => {
     <div
       v-if="showMessage"
       data-testid="error-message"
-      class="absolute bottom-[-19px] left-0 text-[13px] text-red-700"
+      class="absolute top-full left-0 text-[11px] lg:text-xs text-red-700"
     >
       {{ showMessage?.description }}
     </div>

@@ -1,4 +1,4 @@
-import { DeliveryOption } from './types.js';
+import { DeliveryOption, EventType } from './enums.js';
 export interface IProduct {
   id: number;
   slug: string;
@@ -101,6 +101,11 @@ export interface ICategory {
   subcategories: ISubcategory[];
 }
 
+export interface IOption {
+  id: number;
+  name: string;
+}
+
 export interface INavigation {
   id: number;
   name: string;
@@ -110,8 +115,8 @@ export interface INavigation {
 export interface IEvent {
   id: number;
   title: string;
-  date: Date;
-  type: 'news' | 'offers';
+  date: string;
+  type: EventType;
   link: string;
   image: string;
   summary: string;
@@ -173,4 +178,16 @@ export interface ILabels {
     parent_id: number;
     name: string;
   }[];
+}
+
+export interface AddressesOptions {
+  id: number;
+  country_id: number;
+  name: string;
+  street: string;
+  city: string;
+  region: string;
+  zip_code: string;
+  phone: string;
+  default: boolean;
 }

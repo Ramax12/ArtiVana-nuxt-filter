@@ -79,3 +79,5 @@
 | `src/typescript/interfaces.ts` | Интерфейсы для моделей данных, используемых в фильтрах, товарах |
 | `src/typescript/types.ts` | Типы TypeScript для проекта |
 | `src/utils/normalize-product.ts` | Утилита для приведения данных товара из базы к интерфейсу IProduct: нормализует поля, фильтрует массивы и приводит типы к ожидаемому формату. |
+
+Визуал: https://artivana-nuxt.vercel.app/catalog/studio-equipment/lighting
